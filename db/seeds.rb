@@ -21,11 +21,30 @@ owner2 = Owner.create(first_name: "Juanin Juan", last_name: "Harry", email: "jua
 owner3 = Owner.create(first_name: "Mario", last_name: "Hugo", email: "mhugo@gmail.com", phone: "987654", address: "esquina de Ministro Carvajal con Ministro Carvajal")
 
 # Pets (usando asociaciones)
-pet1 = owner1.pets.create(name: "Estalagtimitiquita", species: "Dog", breed: "Labrador", date_of_birth: "2020-01-01", weight: 25.5)
-pet2 = owner1.pets.create(name: "Carambolas", species: "Cat", breed: "Siamese", date_of_birth: "2020-05-10", weight: 5.2)
-pet3 = owner2.pets.create(name: "Barney", species: "Rabbit", breed: "Mini Lop", date_of_birth: "2020-03-15", weight: 2.1)
-pet4 = owner3.pets.create(name: "Gonzo", species: "Dog", breed: "Bulldog", date_of_birth: "2020-07-20", weight: 20.0)
-pet5 = owner2.pets.create(name: "Lunares", species: "Cat", breed: "Persian", date_of_birth: "2020-11-11", weight: 4.8)
+pet1 = owner1.pets.create(name: "Estalagtimitiquita", species: "dog", breed: "Labrador", date_of_birth: "2020-01-01", weight: 25.5)
+pet2 = owner1.pets.create(name: "Carambolas", species: "cat", breed: "Siamese", date_of_birth: "2020-05-10", weight: 5.2)
+pet3 = owner2.pets.create(name: "Barney", species: "rabbit", breed: "Mini Lop", date_of_birth: "2020-03-15", weight: 2.1)
+pet4 = owner3.pets.create(name: "Gonzo", species: "dog", breed: "Bulldog", date_of_birth: "2020-07-20", weight: 20.0)
+pet5 = owner2.pets.create(name: "Lunares", species: "cat", breed: "Persian", date_of_birth: "2020-11-11", weight: 4.8)
+
+# Adjuntar fotos
+pet1.photo.attach(
+  io: File.open(Rails.root.join("db/seeds/pets/dog1.jpg")),
+  filename: "dog1.jpg",
+  content_type: "image/jpeg"
+)
+
+pet2.photo.attach(
+  io: File.open(Rails.root.join("db/seeds/pets/cat1.jpg")),
+  filename: "cat1.jpg",
+  content_type: "image/jpeg"
+)
+
+pet3.photo.attach(
+  io: File.open(Rails.root.join("db/seeds/pets/rabbit1.jpg")),
+  filename: "rabbit1.jpg",
+  content_type: "image/jpeg"
+)
 
 # Vets
 vet1 = Vet.create(first_name: "Anabela", last_name: "Silvanus", email: "anabela@vet.com", phone: "111111", specialization: "General")
