@@ -46,7 +46,7 @@ class TreatmentsController < ApplicationController
       :name,
       :medication,
       :dosage,
-      :notes,
+      :clinical_notes,
       :administered_at
     )
   end

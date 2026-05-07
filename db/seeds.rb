@@ -52,8 +52,53 @@ app3 = Appointment.create(pet: pet3, vet: vet2, date: 2.days.ago, reason: "Injur
 app4 = Appointment.create(pet: pet4, vet: vet2, date: 5.days.ago, reason: "Surgery", status: 2)
 app5 = Appointment.create(pet: pet5, vet: vet1, date: 1.day.ago, reason: "Skin issue", status: 3)
 
-Treatment.create(appointment: app2, name: "Antibiotic", medication: "Amoxicillin", dosage: "2x daily", notes: "Infection", administered_at: Time.now)
-Treatment.create(appointment: app3, name: "Pain relief", medication: "Ibuprofen", dosage: "1x daily", notes: "Post injury", administered_at: Time.now)
-Treatment.create(appointment: app4, name: "Post surgery", medication: "Antibiotics", dosage: "3x daily", notes: "Recovery", administered_at: Time.now)
-Treatment.create(appointment: app2, name: "Vitamin", medication: "Vit C", dosage: "1x daily", notes: "Immune boost", administered_at: Time.now)
-Treatment.create(appointment: app3, name: "Bandage", medication: "None", dosage: "N/A", notes: "Wound care", administered_at: Time.now)
+t1 = Treatment.new(
+  appointment: app2,
+  name: "Antibiotic",
+  medication: "Amoxicillin",
+  dosage: "2x daily",
+  administered_at: Time.now
+)
+t1.clinical_notes = "Infection"
+t1.save!
+
+t2 = Treatment.new(
+  appointment: app3,
+  name: "Pain relief",
+  medication: "Ibuprofen",
+  dosage: "1x daily",
+  administered_at: Time.now
+)
+t2.clinical_notes = "Post injury"
+t2.save!
+
+t3 = Treatment.new(
+  appointment: app4,
+  name: "Post surgery",
+  medication: "Antibiotics",
+  dosage: "3x daily",
+  administered_at: Time.now
+)
+t3.clinical_notes = "Recovery"
+t3.save!
+
+t4 = Treatment.new(
+  appointment: app2,
+  name: "Vitamin",
+  medication: "Vit C",
+  dosage: "1x daily",
+  administered_at: Time.now
+)
+t4.clinical_notes = "Immune boost"
+t4.save!
+
+t5 = Treatment.new(
+  appointment: app3,
+  name: "Bandage",
+  medication: "None",
+  dosage: "N/A",
+  administered_at: Time.now
+)
+t5.clinical_notes = "Wound care"
+t5.save!
+

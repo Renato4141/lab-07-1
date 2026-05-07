@@ -51,7 +51,7 @@ class AppointmentsController < ApplicationController
   private
 
   def set_appointment
-    @appointment = Appointment.find(params[:id])
+    @appointment = Appointment.includes(treatments: :rich_text_clinical_notes).find(params[:id])
   end
 
   def appointment_params
