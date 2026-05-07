@@ -38,7 +38,8 @@ class Pet < ApplicationRecord
       errors.add(:photo, "must be a JPEG, PNG, or WEBP type")
     end
 
-  if photo.bytesize > 5.megabytes
-    errors.add(:photo, "Maximum size is 5MB.")
+    if photo.bytesize > 5.megabytes
+      errors.add(:photo, "Maximum size is 5MB.")
+    end
   end
 end
