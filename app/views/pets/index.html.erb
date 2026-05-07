@@ -25,9 +25,12 @@
   <tbody>
     <% @pets.each do |pet| %>
       <tr>
+
+        <!-- FOTO FIX DEFINITIVO -->
         <td>
           <% if pet.photo.attached? %>
-            <%= image_tag pet.photo.variant(resize_to_fill: [60, 60]),
+            <%= image_tag url_for(pet.photo),
+                  style: "width: 60px; height: 60px; object-fit: cover;",
                   class: "rounded" %>
           <% else %>
             <div class="bg-light border rounded d-flex align-items-center justify-content-center"
@@ -42,16 +45,15 @@
         <td><%= pet.breed %></td>
 
         <td>
-          <%= link_to pet.owner.first_name,
-                owner_path(pet.owner) if pet.owner %>
+          <%= link_to pet.owner&.first_name, owner_path(pet.owner) if pet.owner %>
         </td>
 
-        <td><%= pet.date_of_birth.strftime("%B %d, %Y") %></td>
+        <td>
+          <%= pet.date_of_birth&.strftime("%B %d, %Y") %>
+        </td>
 
         <td>
-          <%= link_to "Edit",
-                edit_pet_path(pet),
-                class: "btn btn-sm btn-warning" %>
+          <%= link_to "Edit", edit_pet_path(pet), class: "btn btn-sm btn-warning" %>
 
           <%= button_to "Delete",
                 pet_path(pet),
@@ -59,6 +61,7 @@
                 data: { turbo_confirm: "Are you sure?" },
                 class: "btn btn-sm btn-danger" %>
         </td>
+
       </tr>
     <% end %>
   </tbody>

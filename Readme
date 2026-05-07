@@ -1,38 +1,33 @@
-# Lab 07-1 — Veterinary App
+This application is a Ruby on Rails veterinary clinic system that manages pets, owners, vets, appointments, and treatments, including image uploads and rich text content.
 
-A Ruby on Rails application for managing a veterinary clinic. Includes owners, pets, vets, appointments, and treatments with rich text support.
+How to run the app
 
-## Setup & Running
+To set up and run the application locally:
 
-```bash
 bundle install
-bin/rails db:setup
+rails db:create
+rails db:migrate
+rails db:seed
 bin/rails server
-```
 
-Then open http://localhost:3000 in your browser.
+Then open your browser at:
 
-## System Dependencies
+http://localhost:3000
 
-### libvips (required for image variants)
+This project uses Active Storage variants to process and resize images.
+For this reason, libvips must be installed on your system.
 
-Active Storage uses libvips to generate image variants (e.g. the 60×60 thumbnails on the Pet index page).
+Install on Linux / WSL:
+sudo apt update
+sudo apt install libvips
 
-**macOS:**
-```bash
-brew install vips
-```
+Trix (Action Text) sanitization note
 
-**Ubuntu / Debian:**
-```bash
-sudo apt-get install libvips-dev
-```
+The application uses Action Text (Trix editor) for rich text fields such as Treatment#clinical_notes.
 
-**Arch Linux:**
-```bash
-sudo pacman -S libvips
-```
+Important behavior:
 
-## Trix Sanitization Check
-
-Pasted `<script>alert(1)</script>` into the Trix editor on the Treatment form and saved. On the Appointment show page, no alert fired and the script tag did not appear in the rendered HTML — Action Text strips it automatically.
+HTML input is automatically sanitized by Rails
+Unsafe tags and scripts are removed
+Only safe formatting (bold, lists, links, etc.) is preserved
+This ensures protection against XSS (cross-site scripting)

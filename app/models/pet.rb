@@ -27,19 +27,20 @@ class Pet < ApplicationRecord
   validates :date_of_birth, presence: true
   validate :date_not_in_future
   validates :weight, presence: true, numericality: { greater_than: 0 }
-  validates :photo_validation
+  validate :photo_validation
 
   scope :by_species, ->(species) { where(species: species.to_s.downcase) }
 
   def photo_validation
     return unless photo.attached?
-     allowed_types = ["image/jpeg", "image/png", "image/webp"]
+
+    allowed_types = ["image/jpeg", "image/png", "image/webp"]
 
     unless allowed_types.include?(photo.content_type)
       errors.add(:photo, "must be a JPEG, PNG, or WEBP type")
     end
 
-    if photo.bytesize > 5.megabytes
+    if photo.attached? && photo.blob.present? && photo.blob.byte_size > 5.megabytes
       errors.add(:photo, "Maximum size is 5MB.")
     end
   end
