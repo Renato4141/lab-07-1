@@ -1,84 +1,34 @@
-<h1>Appointment</h1>
+<% @appointment.treatments.each do |t| %>
+  <li class="list-group-item">
+    <div class="d-flex justify-content-between align-items-start">
+      <div>
+        <strong><%= t.name %></strong><br>
 
-<p><strong>Date:</strong> <%= @appointment.date&.strftime("%B %d, %Y") %></p>
-<p><strong>Reason:</strong> <%= @appointment.reason %></p>
-<p><strong>Status:</strong> <%= @appointment.status&.humanize || "Sin estado" %></p>
+        <small>
+          <%= t.medication %> - <%= t.dosage %>
+        </small>
 
-<p>
-  <strong>Pet:</strong>
-  <%= link_to @appointment.pet.name, @appointment.pet if @appointment.pet %>
-</p>
-
-<p>
-  <strong>Vet:</strong>
-  <%= link_to "#{@appointment.vet.first_name} #{@appointment.vet.last_name}", @appointment.vet if @appointment.vet %>
-</p>
-
-<hr>
-
-<h2>Treatments</h2>
-
-<%= link_to "New Treatment",
-      new_appointment_treatment_path(@appointment),
-      class: "btn btn-primary mb-3" %>
-
-<% if @appointment.treatments.any? %>
-  <ul class="list-group mb-3">
-    <% @appointment.treatments.each do |t| %>
-      <li class="list-group-item">
-        <div class="d-flex justify-content-between align-items-start">
-          <div>
-            <strong><%= t.name %></strong><br>
-
-            <small>
-              <%= t.medication %> - <%= t.dosage %>
-            </small>
-
-            <div class="mt-2">
-              <%= t.clinical_notes.body %>
-            </div>
-
-            <small class="text-muted">
-              Administered at:
-              <%= t.administered_at.strftime("%B %d, %Y %H:%M") if t.administered_at %>
-            </small>
-          </div>
-
-          <div>
-            <%= link_to "Edit",
-                  edit_appointment_treatment_path(@appointment, t),
-                  class: "btn btn-sm btn-warning" %>
-
-            <%= button_to "Delete",
-                  appointment_treatment_path(@appointment, t),
-                  method: :delete,
-                  data: { turbo_confirm: "Are you sure?" },
-                  class: "btn btn-sm btn-danger mt-1" %>
-          </div>
+        <div class="mt-2">
+          <%= t.clinical_notes %>
         </div>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <div class="alert alert-secondary">
-    No treatments registered yet.
-  </div>
+
+        <small class="text-muted">
+          Administered at:
+          <%= t.administered_at.strftime("%B %d, %Y %H:%M") if t.administered_at %>
+        </small>
+      </div>
+
+      <div>
+        <%= link_to "Edit",
+              edit_appointment_treatment_path(@appointment, t),
+              class: "btn btn-sm btn-warning" %>
+
+        <%= button_to "Delete",
+              appointment_treatment_path(@appointment, t),
+              method: :delete,
+              data: { turbo_confirm: "Are you sure?" },
+              class: "btn btn-sm btn-danger mt-1" %>
+      </div>
+    </div>
+  </li>
 <% end %>
-
-<hr>
-
-<div class="mt-3">
-  <%= link_to "Edit Appointment",
-        edit_appointment_path(@appointment),
-        class: "btn btn-warning" %>
-
-  <%= button_to "Delete Appointment",
-        appointment_path(@appointment),
-        method: :delete,
-        data: { turbo_confirm: "Are you sure?" },
-        class: "btn btn-danger" %>
-
-  <%= link_to "Back to Appointments",
-        appointments_path,
-        class: "btn btn-secondary" %>
-</div>

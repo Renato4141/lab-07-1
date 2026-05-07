@@ -1,0 +1,38 @@
+# Lab 07-1 — Veterinary App
+
+A Ruby on Rails application for managing a veterinary clinic. Includes owners, pets, vets, appointments, and treatments with rich text support.
+
+## Setup & Running
+
+```bash
+bundle install
+bin/rails db:setup
+bin/rails server
+```
+
+Then open http://localhost:3000 in your browser.
+
+## System Dependencies
+
+### libvips (required for image variants)
+
+Active Storage uses libvips to generate image variants (e.g. the 60×60 thumbnails on the Pet index page).
+
+**macOS:**
+```bash
+brew install vips
+```
+
+**Ubuntu / Debian:**
+```bash
+sudo apt-get install libvips-dev
+```
+
+**Arch Linux:**
+```bash
+sudo pacman -S libvips
+```
+
+## Trix Sanitization Check
+
+Pasted `<script>alert(1)</script>` into the Trix editor on the Treatment form and saved. On the Appointment show page, no alert fired and the script tag did not appear in the rendered HTML — Action Text strips it automatically.
